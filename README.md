@@ -36,7 +36,13 @@ UV_L1 = original L1 file
 
 UV_L1_mod = modified L1 file after removing corrupt data
 
-**The checks have not been carried out on L1 datasets processed at the UVIT POC and sent to ISSDC before June 2021.** Therefore, we advise the users of UVIT data to check their L1 data for the defect using the `check_centroid_gaps` function of UVITility. It can be done as follows. 
+### The checks have **NOT** been carried out on L1 datasets processed at the UVIT POC and sent to ISSDC before July 1, 2021. 
+> How to check the POC processing date of your L1 dataset:
+> 1. Search for your dataset on the AstroBrowse website.
+> 2. Download the data quality report XML file (`..._dqr.xml`) by clicking on the 'Q' download flag adjacent to the 'L1' and 'L2' flags.
+> 3. Open the XML file, and check the '`Creation_date`' value.
+
+If your data was processed and sent to ISSDC before July 1, 2021, we advise the users of UVIT data to check their L1 data for the defect using the `check_centroid_gaps` function of UVITility. It can be done as follows. 
 
 1. Download the L1 dataset of your observation from ISSDC’s [AstroBrowse website](https://astrobrowse.issdc.gov.in/astro_archive/archive/Home.jsp). 
 2. Extract the compressed L1 dataset into a directory. 
