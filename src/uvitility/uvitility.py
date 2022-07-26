@@ -26,7 +26,6 @@ window_rate_dict = {'511': 28.7185,
 # To detect sawtooth in data. 
 def find_breaks(data):
     if len(data) == 0:
-        print('No data')
         return None
     data1 = np.roll(data,1)
     data1[0] = 0
@@ -200,7 +199,7 @@ def centroid_check(L1_FITS):
 
     X_array = X_array[12: 501]
     if len(X_array[X_array == 0]) > 0:
-        print('\nPossible sparse data, the gap estimate could be unreliable for:')
+        print('\nPossible sparse data, the gap detection could be UNRELIABLE for:')
         print(L1_FITS) 
         
     X_left_ratio = X_array[1:] / X_array[:-1]
