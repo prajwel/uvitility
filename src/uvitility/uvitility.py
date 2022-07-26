@@ -11,6 +11,9 @@ import matplotlib.pyplot as plt
 from astropy.io import fits
 
 
+# To ignore warning
+np.seterr(divide='ignore', invalid='ignore')
+
 # A dictionary of window sizes and frame rates.
 window_rate_dict = {'511': 28.7185,
                     '349': 61.0,
@@ -24,6 +27,7 @@ window_rate_dict = {'511': 28.7185,
 def find_breaks(data):
     if len(data) == 0:
         print('No data')
+        return None
     data1 = np.roll(data,1)
     data1[0] = 0
     mask = data < data1
@@ -42,6 +46,8 @@ def centroid_check(L1_FITS):
     BOD_frame_length = frame_rate * 25
     frames = hdulist[2].data['SecHdrImageFrameCount']
     breaks = find_breaks(frames)
+    if breaks is None:
+        return
     BOD_breaks = breaks[breaks < BOD_frame_length]
     BOD_mask = np.ones(len(frames), dtype = bool)
     BOD_mask[frames == 1] = False
@@ -127,10 +133,14 @@ def centroid_check(L1_FITS):
     axs[4][1].set_xlabel('Y-centroids')
 
     path = os.path.normpath(L1_FITS)
-    parent = path.split(os.sep)[-2]
-    filename = path.split(os.sep)[-1]
-    figure_name = filename.replace('.fits', '_stretched_data.png')
-    figure_name = parent + '_' + figure_name
+    if len(path.split(os.sep)) > 1:
+        parent = path.split(os.sep)[-2]
+        filename = path.split(os.sep)[-1]
+        figure_name = filename.replace('.fits', '_stretched_data.png')
+        figure_name = parent + '_' + figure_name
+    else:
+        parent = os.getcwd() + os.sep
+        figure_name = L1_FITS.replace('.fits', '_stretched_data.png')
             
     plt.savefig(figure_name,
                 format = 'png',
@@ -189,6 +199,10 @@ def centroid_check(L1_FITS):
     Y_array, bin_edges = np.histogram(Y_p, bins = bins)
 
     X_array = X_array[12: 501]
+    if len(X_array[X_array == 0]) > 0:
+        print('\nPossible sparse data, the gap estimate could be unreliable for:')
+        print(L1_FITS) 
+        
     X_left_ratio = X_array[1:] / X_array[:-1]
     X_right_ratio = X_array[:-1] / X_array[1:]
     X_ratio_product = X_left_ratio[1:] * X_right_ratio[:-1]
