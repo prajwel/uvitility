@@ -97,6 +97,11 @@ def centroid_check(L1_FITS):
     # Adding the integer and float parts together.
     X_pos = Ix + Fx
     Y_pos = Iy + Fy
+    
+    hot_pixel_mask = ~np.logical_and(Ix == 131, Iy == 216)
+    
+    X_pos = X_pos[hot_pixel_mask]
+    Y_pos = Y_pos[hot_pixel_mask]
 
     # Keeping some standards.
     X_p = X_pos[X_pos > 0.]
