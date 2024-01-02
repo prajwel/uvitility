@@ -1,0 +1,12 @@
+abstract: UVIT utility functions
+authors:
+- family-names: Prajwel Joseph
+cff-version: 1.2.0
+date-released: '2024-01-02'
+doi: 10.5281/zenodo.10450291
+license:
+- cc-by-4.0
+repository-code: https://github.com/prajwel/uvitility/tree/v0.1.2
+title: 'prajwel/uvitility: v0.1.2'
+type: software
+version: v0.1.2
