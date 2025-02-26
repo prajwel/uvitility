@@ -69,11 +69,11 @@ def centroid_check(L1_FITS):
     bit_dat = bit_data.reshape(len_row, 48)
 
     # bit data gets converted to useful events data. Hold my beer! 
-    Rx = bit_dat[:, 0] * 256
+    Rx = bit_dat[:, 0].astype(int) * 256
     Lx = np.packbits(bit_dat[:, 1:9])
     Ix = Rx + Lx
 
-    Ry = bit_dat[:, 16] * 256
+    Ry = bit_dat[:, 16].astype(int) * 256
     Ly = np.packbits(bit_dat[:, 17:25])
     Iy = Ry + Ly
 
