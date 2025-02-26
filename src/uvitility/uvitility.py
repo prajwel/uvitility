@@ -2,10 +2,6 @@
 
 
 import os
-import matplotlib
-
-# Force matplotlib to not use any Xwindows backend.
-matplotlib.use("Agg")
 import numpy as np
 import matplotlib.pyplot as plt
 
@@ -34,7 +30,7 @@ def find_breaks(data):
     data1 = np.roll(data, 1)
     data1[0] = 0
     mask = data < data1
-    indices = [i for i, m in enumerate(mask) if m == True]
+    indices = [i for i, m in enumerate(mask) if m is True]
     return np.array(indices)
 
 
