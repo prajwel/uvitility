@@ -39,8 +39,12 @@ def centroid_check(L1_FITS):
     hdulist = fits.open(L1_FITS)
 
     # To get the frame rate.
-    window = str(hdulist[0].header["win_x_sz"])
-    frame_rate = window_rate_dict[str(window)]
+    try:
+        window = str(hdulist[0].header["win_x_sz"])
+        frame_rate = window_rate_dict[str(window)]
+    except KeyError:
+        window = str(hdulist[0].header["win_y_sz"])
+        frame_rate = window_rate_dict[str(window)]
 
     # ~25 seconds of initial data could be BOD check.
     BOD_frame_length = frame_rate * 25
